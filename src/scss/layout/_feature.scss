@@ -1,0 +1,118 @@
+@use "sass:map";
+/****************************
+feature（宿命・相性・運勢）
+****************************/
+.feature {
+  color: var(--white);
+  $columnBp: md;
+
+  &__inner {
+    display: grid;
+    grid-auto-flow: row;
+    align-items: start;
+    @include mediaUp($columnBp) {
+      grid-auto-flow: column;
+    }
+  }
+
+  &__title {
+    position: relative;
+    z-index: 1;
+
+    @include fluid-mid-props(
+      $mid-range: map.get($breakpoint-nums, $columnBp),
+      $props: [
+        (
+          width,
+          159,
+          200,
+          240,
+          369,
+        ),
+      ]
+    );
+
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &__header {
+    position: relative;
+    z-index: 1;
+    line-height: 1.54;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    @include noto-normal;
+    @include fluid-props(
+      $props: [
+        (
+          font-size,
+          26,
+          28,
+        ),
+      ]
+    );
+
+    @include mediaUp($columnBp) {
+      line-height: 1.5;
+      letter-spacing: 0.02em;
+      @include fluid-props(
+        $props: [
+          (
+            font-size,
+            22.5,
+            29,
+          ),
+        ]
+      );
+    }
+    br {
+      @include mediaUp(sm) {
+        display: none;
+      }
+    }
+  }
+
+  &__content {
+    @include fluid-props(
+      $props: [
+        (
+          margin-top,
+          20,
+          58,
+        ),
+      ]
+    );
+  }
+
+  &__text {
+    letter-spacing: 0.04em;
+    color: var(--white);
+    line-height: 1.5;
+    @include fluid-props(
+      $props: (
+        (font-size, 16, 18),
+        (margin-top, 25, 28),
+      )
+    );
+    @include mediaUp($columnBp) {
+      line-height: calc(28 / 18);
+    }
+  }
+
+  &__image {
+    display: block;
+    max-width: none;
+  }
+
+  &__decoration {
+    display: none;
+    @include mediaUp(dt) {
+      display: block;
+      position: absolute;
+    }
+  }
+}

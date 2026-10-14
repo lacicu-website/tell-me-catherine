@@ -1,0 +1,27 @@
+/****************************
+typography settings
+****************************/
+// Webフォントは_head.ejsで読み込み
+// デザインで約物が半角になっている箇所はYakuHanJPで対応
+@mixin font-Noto {
+  font-family: YakuHanJP, "Noto Sans JP", sans-serif;
+}
+
+@mixin noto-normal {
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+@mixin font-mplus {
+  font-family: YakuHanJP, "M PLUS 2", sans-serif;
+}
+
+@mixin mplus-normal {
+  font-family: "M PLUS 2", sans-serif;
+}
+
+@mixin text-gradient($gradient: var(--text-heading-gradient)) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

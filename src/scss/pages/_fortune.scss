@@ -1,0 +1,77 @@
+@use "sass:map";
+/****************************
+  fortune
+****************************/
+
+.fortune {
+  $columnBp: md;
+  --section-bg: linear-gradient(161.4deg, rgb(0, 136, 255) 5.4%, rgb(255, 0, 255) 170.2%);
+
+  @include mediaUp($columnBp) {
+    --section-bg: linear-gradient(144.2deg, rgb(0, 134, 255) 21.3%, rgb(236, 46, 255) 140.8%);
+  }
+  &__inner {
+    display: grid;
+    @include fluid-props(
+      $props: (
+        (padding-top, 20, 47),
+        (padding-right, 37, 113),
+        (padding-bottom, 73, 134),
+        (padding-left, 38, 122),
+        (column-gap, 24, 136),
+      )
+    );
+    @include mediaUp($columnBp) {
+      grid-template-columns: 370fr 700fr;
+    }
+  }
+  &__title {
+    justify-self: center;
+    margin-right: 18px;
+
+    @include fluid-mid-props(
+      $mid-range: map.get($breakpoint-nums, $columnBp),
+      $props: (
+        // (margin-top, -6, -12, -12, -64),
+        (width, 156, 240, 240, 370),
+      )
+    );
+
+    @include mediaUp($columnBp) {
+      margin-right: 0;
+      justify-self: initial;
+    }
+  }
+  &__content {
+    @include fluid-props(
+      $props: [
+        (
+          margin-top,
+          29,
+          62,
+        ),
+      ]
+    );
+    // @include mediaUp($columnBp) {
+    //   margin-top: 0;
+    // }
+  }
+  &__image {
+    margin-left: auto;
+    @include fluid-props(
+      $props: (
+        (margin-top, 47, 62),
+        (width, 309, 423),
+      )
+    );
+  }
+  &__decoration {
+    @include fluid-props(
+      $props: (
+        (bottom, -12, -56),
+        (left, 18, 66),
+        (width, 41, 150),
+      )
+    );
+  }
+}

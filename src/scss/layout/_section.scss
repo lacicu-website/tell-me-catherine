@@ -1,0 +1,104 @@
+/****************************
+global layout setting
+****************************/
+.section {
+  $columnBp: md;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  @include mediaUp(xl) {
+    max-width: $xxlarge_width;
+  }
+  &__inner {
+    position: relative;
+    width: 100%;
+    @include mediaUp(xl) {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: $xlarge_width;
+    }
+  }
+
+  // 上端が波になるセクション
+  // 背景を波の高さ分だけ上に伸ばし、波の形で切り抜いて背景のグラデーションとつなぐ
+  &--wave {
+    // 波1つ分の幅と高さ
+    --wave-h: #{sp(9)};
+    --wave-w: #{sp(97.5)};
+    // 画面サイズより十分大きくする
+    --wave-tile-w: calc(var(--wave-w) * 20);
+    --wave-tile-h: calc(var(--wave-h) * 10 / 9);
+    --wave-line-color: var(--violet);
+    isolation: isolate;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: calc(var(--wave-h) * -1) 0 0;
+      z-index: -1;
+      background: var(--section-bg, var(--white));
+      mask:
+        url("../images/oshiete/common/wave.svg") repeat-x left top / var(--wave-tile-w) var(--wave-tile-h),
+        linear-gradient(#000, #000) left var(--wave-h) / 100% calc(100% - var(--wave-h)) no-repeat;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: calc(100% + var(--wave-h) - var(--wave-tile-h));
+      width: 100%;
+      height: var(--wave-tile-h);
+      background-color: var(--wave-line-color);
+      mask: url("../images/oshiete/common/wave-line.svg") repeat-x left bottom / var(--wave-tile-w) 100%;
+    }
+
+    @include mediaUp($layout-breakpoint) {
+      --wave-h: #{pc(22.15)};
+      --wave-w: #{pc(239.84)};
+      --wave-line-color: var(--violet-pc);
+      &::after {
+        mask-image: url("../images/oshiete/common/wave-line-pc.svg");
+      }
+    }
+  }
+
+  &__text {
+    letter-spacing: 0.04em;
+    @include fluid-props($props: [(font-size, 16, 18)]);
+    @include mediaUp($columnBp) {
+      line-height: calc(28 / 18);
+      @include text-gradient;
+    }
+  }
+  &__header {
+    font-weight: bold;
+    line-height: 1.5;
+    letter-spacing: 0.085em;
+    white-space: nowrap;
+    @include fluid-props(
+      $props: [
+        (
+          font-size,
+          23,
+          28,
+        ),
+      ]
+    );
+
+    @include text-gradient;
+
+    @include mediaUp($columnBp) {
+      line-height: calc(40 / 29);
+      letter-spacing: 0.04em;
+      @include fluid-props(
+        $props: [
+          (
+            font-size,
+            22.5,
+            29,
+          ),
+        ]
+      );
+    }
+  }
+}

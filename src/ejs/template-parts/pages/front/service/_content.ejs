@@ -1,0 +1,38 @@
+<% const section = "service"; -%>
+<% const list = pageData.services; -%>
+<section class="section section--wave <%= section %>">
+  <div class="section__inner <%= section %>__inner">
+    <h2 class="<%= section %>__header">
+      <img class="<%= section %>__sparkle <%= section %>__sparkle--left" src="../images/oshiete/service/service-heading-sparkle-left@2x.png" alt="" loading="lazy" />
+      <span class="<%= section %>__header-text">サービスについて</span>
+      <img class="<%= section %>__sparkle <%= section %>__sparkle--right" src="../images/oshiete/service/service-heading-sparkle-right@2x.png" alt="" loading="lazy" />
+    </h2>
+
+    <div class="<%= section %>__member">
+      <div class="<%= section %>__member-body">
+        <h3 class="<%= section %>__member-label">
+          <img src="../images/oshiete/service/service-member-label@2x.png" alt="会員登録" loading="lazy" />
+        </h3>
+        <p class="<%= section %>__member-text">あなただけのMY BOOKや、<br class="hidden-pc">いろんな占い機能にアクセス可能。<br>キャサリンとの自由会話も<br class="hidden-pc">できるようになるから、<br>ガールズトークを楽しんで！</p>
+        <p class="<%= section %>__price">月額<span class="number">500</span><span class="unit">円（税込）</span></p>
+      </div>
+      <img class="<%= section %>__member-logo" src="../images/oshiete/service/service-member-logo@2x.png" alt="" loading="lazy" />
+      <img class="<%= section %>__member-chara" src="../images/oshiete/service/service-member-chara@2x.png" alt="" loading="lazy" />
+    </div>
+
+    <ul class="<%= section %>__list">
+      <% list.forEach((item) => { %>
+        <li class="<%= section %>__card">
+          <div class="<%= section %>__card-inner">
+            <h3 class="<%= section %>__label">
+              <img src="../images/oshiete/service/service-<%= item.name %>-label@2x.png" alt="<%= item.label %>" loading="lazy" />
+            </h3>
+            <p class="<%= section %>__text"><%- item.text %></p>
+            <img class="<%= section %>__thumb" src="../images/oshiete/service/service-<%= item.name %>-thumb@2x.png" alt="キャサリン" loading="lazy" />
+          </div>
+          <img class="<%= section %>__panel" src="../images/oshiete/service/service-<%= item.name %>-panel@2x.png" alt="1000文字以上にわたる徹底的な分析" loading="lazy" />
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+</section>

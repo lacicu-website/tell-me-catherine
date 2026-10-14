@@ -1,0 +1,186 @@
+@use "sass:map";
+
+/****************************
+  bunshin
+****************************/
+$columnBp: dt;
+
+.bunshin {
+  --section-bg: linear-gradient(168.7deg, rgb(255, 255, 255) 9.3%, rgb(217, 208, 255) 85.5%);
+  @include mediaUp($layout-breakpoint) {
+    --section-bg: linear-gradient(168.7deg, rgb(255, 255, 255) 14.1%, rgb(216, 209, 255) 130.3%);
+  }
+  .num {
+    display: inline-block;
+    margin-right: 0.2em;
+  }
+  .ml {
+    display: inline-block;
+    letter-spacing: 0.04em;
+    @include mediaUp(sm) {
+      margin-left: 0.3em;
+      letter-spacing: 0.085em;
+    }
+  }
+  &__inner {
+    display: grid;
+    grid-template-areas:
+      "header"
+      "text"
+      "card"
+      "link";
+    @include fluid-mid-props(
+      $mid-range: map.get($breakpoint-nums, $layout-breakpoint),
+      $props: (
+        (padding-top, 33, 69, 60, 81),
+        (padding-right, 16, 80, 30, 128),
+        (padding-left, 16, 80, 30, 128),
+        (padding-bottom, 38, 80, 80, 123),
+      )
+    );
+    @include mediaUp($columnBp) {
+      grid-template-areas:
+        "header card"
+        "text card"
+        "link link";
+      grid-template-columns: 609fr 503fr;
+      grid-template-rows: auto 1fr auto;
+      @include fluid-props($props: [(column-gap, 8, 52)]);
+    }
+  }
+  &__header {
+    grid-area: header;
+    white-space: nowrap;
+    justify-self: start;
+    @include text-gradient;
+    padding-left: 2%;
+    @include mediaUp(sm) {
+      padding-left: 0;
+    }
+    @include mediaUp($columnBp) {
+      @include fluid-props(
+        $props: [
+          (
+            margin-top,
+            36,
+            67,
+          )]
+      );
+    }
+  }
+  &__text {
+    grid-area: text;
+    display: none;
+    @include fluid-props($props: [(margin-top, 36, 40)]);
+    @include mediaUp(tb) {
+      @include text-gradient;
+      display: block;
+    }
+    @include mediaUp($columnBp) {
+      max-width: none;
+    }
+
+    br {
+      display: none;
+      @include mediaUp(tb) {
+        display: inline;
+      }
+      @include mediaUp($columnBp) {
+        display: none;
+      }
+      @include mediaUp(pc) {
+        display: inline;
+      }
+    }
+  }
+  &__card {
+    grid-area: card;
+    @include fluid-props(
+      $props: (
+        (padding-top, 16, 0),
+        (padding-right, 19, 8),
+      )
+    );
+    img {
+      display: block;
+      width: 100%;
+    }
+    @include mediaUp(sm) {
+      justify-self: end;
+      @include fluid-props(
+        $props: (
+          (padding-top, 25, 0),
+          (padding-left, 19, 52),
+          (width, 400, 600),
+        )
+      );
+    }
+    @include mediaUp($columnBp) {
+      padding-left: 0;
+      margin-top: -6px;
+      width: 100%;
+    }
+  }
+  &__link-container {
+    grid-area: link;
+    display: grid;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+
+    @include fluid-mid-props(
+      $mid-range: map.get($breakpoint-nums, $columnBp),
+      $props: (
+        (margin-top, 15, 24, 30, 56),
+        (padding-left, 8, 180, 66, 66),
+        (padding-right, 5, 180, 66, 66),
+      )
+    );
+  }
+  &__link {
+    display: block;
+    position: relative;
+    &:hover {
+      .bunshin__link-button {
+        top: 57%;
+        @include mediaUp($columnBp) {
+          top: 58%;
+        }
+      }
+    }
+  }
+  &__link-bg,
+  &__link-button {
+    display: block;
+    width: 100%;
+  }
+  &__link-button {
+    transition: 0.3s;
+    position: absolute;
+
+    top: 58%;
+    left: 50.5%;
+    transform: translate(-50%, -50%);
+    width: 78%;
+    @include mediaUp($columnBp) {
+      width: 36%;
+
+      top: 60%;
+      left: 49.5%;
+    }
+  }
+  &__link-bg,
+  &__link-button {
+    &--sp {
+      @include mediaUp($columnBp) {
+        display: none;
+      }
+    }
+    &--pc {
+      display: none;
+      @include mediaUp($columnBp) {
+        display: block;
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+@use "sass:map";
+/****************************
+  mv
+****************************/
+$columnBp: tb;
+
+.mv {
+  &__inner {
+    @include fluid-props(
+      $props: [
+        (
+          padding-top,
+          20,
+          50,
+        ),
+      ]
+    );
+
+    @include fluid-mid-props(
+      $mid-range: map.get($breakpoint-nums, $columnBp),
+      $props: (
+        (padding-right, 12, 88, 40, 73),
+        (padding-left, 6, 80, 30, 40),
+      )
+    );
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    &--sp {
+      @include mediaUp($columnBp) {
+        display: none;
+      }
+    }
+    &--pc {
+      display: none;
+      @include mediaUp($columnBp) {
+        display: block;
+      }
+    }
+  }
+}

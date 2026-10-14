@@ -1,0 +1,44 @@
+/****************************
+  bunshin-loop
+****************************/
+
+.bunshin-loop {
+  overflow: hidden;
+  @include fluid-props(
+    $props: (
+      (padding-top, 7, 27),
+      (height, 137, 219),
+    )
+  );
+
+  &__track {
+    display: flex;
+    width: max-content;
+    animation: bunshin-loop 80s linear infinite;
+  }
+  &__list {
+    display: flex;
+    list-style: none;
+  }
+  &__item {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    @include fluid-props($props: [(width, 90, 129)]);
+  }
+  &__image {
+    display: block;
+    flex-shrink: 0;
+    width: auto;
+    @include fluid-props($props: [(height, 130, 192)]);
+  }
+}
+
+@keyframes bunshin-loop {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

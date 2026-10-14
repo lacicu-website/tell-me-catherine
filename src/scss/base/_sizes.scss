@@ -1,0 +1,9 @@
+$size-window-width-sp: rem(390);
+$number-window-width-desktop: 1440;
+$number-window-width-md: 900;
+$number-window-width-sp: 390;
+$number-window-width-pc: 1440;
+// SPレイアウトとPCレイアウトの切り替え
+$layout-breakpoint: dt;
+// PCではSPデザインをこの幅で中央に表示する
+$number-window-width-max: 480;

@@ -1,0 +1,33 @@
+{
+  "site": {
+    "name": "おしえてキャサリン",
+    "description": "算命学×AI 新感覚占いサービス。宿命、バイオリズム、相性を知り、キャサリンと人生の戦略を立てよう。"
+  },
+
+  "bunshinCount": 60,
+
+  "services": [
+    {
+      "name": "fortune",
+      "label": "運勢",
+      "text": "年間や月間の運勢を鑑定。<br>その時のテーマや<br class=\"hidden-pc\">攻めるべき時、<br>守るべき時がわかる。"
+    },
+    {
+      "name": "compatibility",
+      "label": "相性",
+      "text": "恋の相性や仕事の相性など、<br>パーセンテージつきで<br class=\"hidden-pc\">いろいろわかる。<br>他人同士の相性も占える。"
+    },
+    {
+      "name": "premium",
+      "label": "プレミアム",
+      "text": "その時期だけの<br class=\"hidden-pc\">特別な占いあれこれ。<br>こまめにチェックして<br class=\"hidden-pc\">みてください。"
+    }
+  ],
+
+  "footerLinks": [
+    { "key": "terms", "label": "利用規約" },
+    { "key": "privacy", "label": "プライバシーポリシー" },
+    { "key": "law", "label": "特定商取引法に基づく表記" },
+    { "key": "company", "label": "運営会社" }
+  ]
+}

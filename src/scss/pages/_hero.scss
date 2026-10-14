@@ -1,0 +1,11 @@
+/****************************
+  hero（mv〜introを1枚の背景でつなぐラッパー）
+****************************/
+.hero {
+  margin-left: auto;
+  margin-right: auto;
+  @include mediaUp(xl) {
+    max-width: $xxlarge_width;
+  }
+  @include hero-background;
+}

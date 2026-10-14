@@ -1,0 +1,173 @@
+/****************************
+  media queries
+****************************/
+
+$num_xs_width: 375;
+$num_sp_width: $number-window-width-sp;
+$num_se_width: 500;
+$num_small_width: 600; //37.5rem
+$num_tablet_width: 768; //48rem
+$num_medium_width: 900; // 56.25rem
+$num_normal_width: 1024;
+$num_sdesktop_width: 1140;
+$num_desktop_width: 1280;
+$num_large_width: 1366;
+$num_xlarge_width: 1440;
+$num_xxlarge_width: 1600;
+
+$xs_width: rem($num_xs_width);
+$sp_width: rem($number-window-width-sp);
+$se_width: rem($num_se_width);
+$small_width: rem($num_small_width); //37.5rem
+$tablet_width: rem($num_tablet_width); //48rem
+$medium_width: rem($num_medium_width); // 56.25rem
+$normal_width: rem($num_normal_width);
+$sdesktop_width: rem($num_sdesktop_width);
+$desktop_width: rem($num_desktop_width);
+$large_width: rem($num_large_width);
+$xlarge_width: rem($num_xlarge_width);
+$xxlarge_width: rem($num_xxlarge_width);
+
+$breakpoints: (
+  xs: $xs_width,
+  sp: $sp_width,
+  se: $se_width,
+  sm: $small_width,
+  tb: $tablet_width,
+  md: $medium_width,
+  dt: $normal_width,
+  pc: $desktop_width,
+  spc: $sdesktop_width,
+  lg: $large_width,
+  xl: $xlarge_width,
+  xxl: $xxlarge_width,
+) !default;
+
+$breakpoint-nums: (
+  xs: $num_xs_width,
+  sp: $num_sp_width,
+  se: $num_se_width,
+  sm: $num_small_width,
+  tb: $num_tablet_width,
+  md: $num_medium_width,
+  dt: $num_normal_width,
+  pc: $num_desktop_width,
+  lg: $num_large_width,
+  xl: $num_xlarge_width,
+  xxl: $num_xxlarge_width,
+) !default;
+
+@mixin mediaUp($breakpoint) {
+  @media (min-width: #{map-get($breakpoints, $breakpoint)}) {
+    @content;
+  }
+}
+@mixin mediaBelow($breakpoint) {
+  @media (max-width: (#{map-get($breakpoints, $breakpoint) - rem(1)})) {
+    @content;
+  }
+}
+
+// 任意のpropertyに対して値を出力する
+@mixin fluid-calc(
+  $prop: width,
+  $min-size: 12,
+  $max-size: 21,
+  $lower-range: $number-window-width-sp,
+  $upper-range: $number-window-width-desktop
+) {
+  #{$prop}: calc(
+    #{rem($min-size)} + (#{$max-size} - #{$min-size}) *
+      ((100vw - #{rem($lower-range)}) / (#{$upper-range} - #{$lower-range}))
+  );
+
+  @include mediaBelow(sp) {
+    #{$prop}: vwsp($min-size);
+  }
+
+  @include mediaUp(xl) {
+    #{$prop}: rem($max-size);
+  }
+}
+
+@mixin fluid-calc-mid(
+  $prop: width,
+  $min-size: 12,
+  $mid-upper-size: 20,
+  $mid-lower-size: 18,
+  $max-size: 21,
+  $lower-range: $number-window-width-sp,
+  $mid-range: $number-window-width-md,
+  $upper-range: $number-window-width-desktop
+) {
+  #{$prop}: calc(
+    #{rem($min-size)} + (#{$mid-upper-size} - #{$min-size}) *
+      ((100vw - #{rem($lower-range)}) / (#{$mid-range} - #{$lower-range}))
+  );
+
+  @include mediaBelow(sp) {
+    #{$prop}: vwsp($min-size);
+  }
+
+  @media (min-width: rem($mid-range)) {
+    #{$prop}: calc(
+      #{rem($mid-lower-size)} + (#{$max-size} - #{$mid-lower-size}) *
+        ((100vw - #{rem($mid-range)}) / (#{$upper-range} - #{$mid-range}))
+    );
+  }
+  @include mediaUp(xl) {
+    #{$prop}: rem($max-size);
+  }
+}
+
+@mixin fluid-props($props, $lower-range: $number-window-width-sp, $upper-range: $number-window-width-desktop) {
+  @each $prop-styles-array in $props {
+    @include fluid-calc(
+      $prop: nth($prop-styles-array, 1),
+      $min-size: nth($prop-styles-array, 2),
+      $max-size: nth($prop-styles-array, 3),
+      $lower-range: $lower-range,
+      $upper-range: $upper-range
+    );
+  }
+}
+@mixin fluid-mid-props(
+  $props,
+  $lower-range: $number-window-width-sp,
+  $mid-range: $number-window-width-md,
+  $upper-range: $number-window-width-desktop
+) {
+  @each $prop-styles-array in $props {
+    @include fluid-calc-mid(
+      $prop: nth($prop-styles-array, 1),
+      $min-size: nth($prop-styles-array, 2),
+      $mid-upper-size: nth($prop-styles-array, 3),
+      $mid-lower-size: nth($prop-styles-array, 4),
+      $max-size: nth($prop-styles-array, 5),
+      $lower-range: $lower-range,
+      $mid-range: $mid-range,
+      $upper-range: $upper-range
+    );
+  }
+}
+
+// mv〜introで共通の背景（.heroラッパーに適用）
+// 横方向はグラデーションの中心を画面中央に揃え、サイズは画面幅に比例させる
+@mixin hero-background {
+  background-color: var(--purple);
+  background-image: radial-gradient(
+    vwsp(256) vwsp(385.6) at 50% vwsp(289),
+    var(--pink) 0%,
+    rgb(217, 144, 255) 46.7%,
+    var(--purple) 99.7%
+  );
+  @include mediaUp(tb) {
+    background-color: rgb(133, 69, 255);
+    background-image: radial-gradient(
+      vwpc(1085.4) vwpc(693.8) at 50% vwpc(313.7),
+      rgb(255, 136, 255) 0%,
+      rgb(207, 148, 255) 46.7%,
+      rgb(133, 69, 255) 99.7%
+    );
+  }
+}

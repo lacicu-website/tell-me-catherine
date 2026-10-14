@@ -1,0 +1,14 @@
+<% const section = "bunshin-loop"; -%>
+<div class="<%= section %>" aria-hidden="true">
+  <div class="<%= section %>__track">
+    <% for (let set = 0; set < 2; set++) { %>
+      <ul class="<%= section %>__list">
+        <% for (let i = 1; i <= pageData.bunshinCount; i++) { %>
+          <li class="<%= section %>__item">
+            <img class="<%= section %>__image" src="../images/oshiete/bunshin-loop/bunshin-loop-<%= String(i).padStart(2, '0') %>@2x.png" alt="" />
+          </li>
+        <% } %>
+      </ul>
+    <% } %>
+  </div>
+</div>

@@ -1,0 +1,122 @@
+@use "sass:map";
+/****************************
+  intro
+****************************/
+$columnBp: md;
+.intro {
+  color: var(--white);
+  text-align: center;
+  position: relative;
+
+  @include fluid-props(
+    $props: (
+      (padding-top, 36, 77),
+      (padding-right, 24, 52),
+      (padding-bottom, 102, 83),
+      (padding-left, 24, 52),
+    )
+  );
+  &__inner {
+    display: grid;
+    justify-items: center;
+  }
+
+  &__header {
+    font-weight: 700;
+    line-height: 1.58;
+    letter-spacing: 0.02em;
+    @include noto-normal;
+
+    @include fluid-props(
+      $props: [
+        (
+          font-size,
+          23,
+          30,
+        )]
+    );
+    @include mediaUp($columnBp) {
+      line-height: 1.5;
+      letter-spacing: 0.06em;
+    }
+  }
+  &__text {
+    letter-spacing: 0;
+    line-height: 1.55;
+    @include fluid-props(
+      $props: (
+        (margin-top, 20, 22),
+        (font-size, 15.5, 18),
+      )
+    );
+    @include mediaUp($columnBp) {
+      line-height: calc(29 / 18);
+      letter-spacing: 0.04em;
+    }
+  }
+  &__button {
+    display: grid;
+    justify-content: center;
+    margin-top: 52px;
+
+    @include fluid-mid-props(
+      $mid-range: map.get($breakpoint-nums, dt),
+      $props: [
+        (
+          width,
+          300,
+          400,
+          460,
+          614,
+        ),
+      ]
+    );
+
+    &:hover {
+      .intro__button-image {
+        top: -5px;
+      }
+    }
+  }
+  &__button-image {
+    top: 0;
+    position: relative;
+    transition: 0.3s;
+    display: block;
+    width: 100%;
+    &--sp {
+      @include mediaUp($layout-breakpoint) {
+        display: none;
+      }
+    }
+    &--pc {
+      display: none;
+      @include mediaUp($layout-breakpoint) {
+        display: block;
+      }
+    }
+  }
+
+  &__flower {
+    position: absolute;
+    &--left {
+      @include fluid-props(
+        $props: (
+          (width, 74, 150),
+          (bottom, -19, -48),
+          (left, 24, 97),
+        )
+      );
+    }
+    &--right {
+      bottom: 0;
+      @include fluid-props(
+        $props: (
+          (width, 76, 156),
+          (bottom, -19, -48),
+          (right, 28, 90),
+        )
+      );
+    }
+  }
+}

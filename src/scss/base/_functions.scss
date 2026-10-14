@@ -1,0 +1,34 @@
+@use "sass:math";
+
+$baseFontSize: 16;
+@function rem($pixels) {
+  // @return $pixels / $baseFontSize * 1rem;
+  @return math.div(math.round(math.div($pixels, $baseFontSize) * 100), 100) * 1rem;
+}
+
+@function vwsp($width) {
+  @return math.div(math.round(math.div(rem($width), $size-window-width-sp) * 1000), 1000) * 100vw;
+}
+
+// SPデザイン(390px)基準の値を、画面幅に比例させつつ最大幅で止める
+@function sp($size) {
+  $fluid: vwsp($size);
+  $fixed: rem($size * math.div($number-window-width-max, $number-window-width-sp));
+  @if $size < 0 {
+    @return max($fluid, $fixed);
+  }
+  @return min($fluid, $fixed);
+}
+
+// PCデザイン(1440px)基準の値を、1440px未満では画面幅に比例させる
+@function vwpc($width) {
+  @return math.div(math.round(math.div($width, $number-window-width-pc) * 100000), 1000) * 1vw;
+}
+@function pc($size) {
+  $fluid: vwpc($size);
+  $fixed: rem($size);
+  @if $size < 0 {
+    @return max($fluid, $fixed);
+  }
+  @return min($fluid, $fixed);
+}

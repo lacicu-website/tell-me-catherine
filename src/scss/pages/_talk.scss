@@ -1,0 +1,368 @@
+@use "sass:math";
+@use "sass:map";
+/****************************
+  talk
+****************************/
+
+.talk {
+  $columnBp: $layout-breakpoint;
+
+  // 上端の屋根分、背景を上に伸ばして切り抜く
+  // vwはフォールバック
+  --dome-h: calc(100vw * 73.53 / 390);
+  --dome-mask: url("../images/oshiete/talk/talk-dome-sp.svg");
+  --section-bg: linear-gradient(180deg, rgb(169, 0, 221) 3.1%, rgb(56, 0, 138) 105.3%);
+  container-type: inline-size;
+  isolation: isolate;
+  color: var(--white);
+  @supports (width: 1cqw) {
+    --dome-h: calc(100cqw * 73.53 / 390);
+  }
+
+  @include mediaUp($columnBp) {
+    --dome-h: calc(100vw * 186 / 1440);
+    --dome-mask: url("../images/oshiete/talk/talk-dome-pc.svg");
+    --section-bg: linear-gradient(180deg, rgb(155, 0, 214) 4.6%, rgb(50, 0, 133) 156.3%);
+    @supports (width: 1cqw) {
+      --dome-h: calc(100cqw * 186 / 1440);
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: calc(var(--dome-h) * -1) 0 0;
+    z-index: -1;
+    background: var(--section-bg);
+    mask:
+      var(--dome-mask) no-repeat left top / 100% var(--dome-h),
+      linear-gradient(#000, #000) left calc(var(--dome-h) - 1px) / 100% calc(100% - var(--dome-h) + 1px) no-repeat;
+  }
+  position: relative;
+
+  &__wave,
+  &__title-image,
+  &__phone-image {
+    display: block;
+    width: 100%;
+    &--sp {
+      @include mediaUp($columnBp) {
+        display: none;
+      }
+    }
+    &--pc {
+      display: none;
+      @include mediaUp($columnBp) {
+        display: block;
+      }
+    }
+  }
+  &__chara-image {
+    display: block;
+    width: 100%;
+    // 解像度低めなので768で切り替え
+    &--sp {
+      @include mediaUp(tb) {
+        display: none;
+      }
+    }
+    &--pc {
+      display: none;
+      @include mediaUp(tb) {
+        display: block;
+      }
+    }
+  }
+
+  &__wave {
+    position: absolute;
+    left: 0;
+    bottom: 100%;
+    z-index: 0;
+    transform: translateY(52%);
+    @include mediaUp($columnBp) {
+      transform: translateY(47%);
+    }
+  }
+  &__upper {
+    display: grid;
+    position: relative;
+    z-index: 1;
+
+    @include fluid-mid-props(
+      $mid-range: map.get($breakpoint-nums, $columnBp),
+      $props: (
+        (padding-right, 24, 36, 30, 69),
+        (padding-left, 37, 100, 60, 229),
+      )
+    );
+    @include mediaUp($columnBp) {
+      grid-template-columns: auto auto;
+      grid-template-rows: auto auto;
+      align-items: start;
+    }
+  }
+
+  &__title {
+    margin-left: auto;
+    margin-right: auto;
+    left: 2%;
+    position: relative;
+    @include fluid-mid-props(
+      $mid-range: map.get($breakpoint-nums, $columnBp),
+      $props: (
+        (margin-top, -22, -60, -18, -18),
+        (width, 258, 500, 500, 753),
+      )
+    );
+
+    @include mediaUp($columnBp) {
+      left: 0;
+      grid-column: 1 / -1;
+    }
+  }
+  &__text {
+    line-height: 1.71;
+    letter-spacing: 0.04em;
+    max-width: 700px;
+    @include fluid-props(
+      $props: (
+        (margin-top, 32, 73),
+        (padding-right, 24, 0),
+        (font-size, 14, 18),
+      )
+    );
+    @include mediaUp(sm) {
+      margin-bottom: 24px;
+    }
+
+    @include mediaUp($columnBp) {
+      margin-bottom: 0;
+      line-height: 1.95;
+      white-space: nowrap;
+      letter-spacing: 0.04em;
+    }
+  }
+  &__phone {
+    position: relative;
+
+    @include fluid-mid-props(
+      $mid-range: map.get($breakpoint-nums, $columnBp),
+      $props: (
+        (left, -12, -24, -24, -37),
+        (width, 342, 560, 460, 695),
+      )
+    );
+    @include mediaUp(sp) {
+      justify-self: end;
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+    @include mediaUp($columnBp) {
+      margin-bottom: 0;
+      padding-right: 40px;
+      @include fluid-props(
+        $props: [
+          (
+            margin-top,
+            13,
+            51,
+          ),
+        ]
+      );
+    }
+    @include mediaUp(pc) {
+      padding-right: 0;
+    }
+    &-image {
+      width: auto;
+    }
+  }
+  &__bottom {
+    display: grid;
+    position: relative;
+    z-index: 1;
+
+    @include fluid-props(
+      $props: (
+        (padding-top, 20, 40),
+        (padding-bottom, 24, 52),
+      )
+    );
+    @include fluid-mid-props(
+      $mid-range: map.get($breakpoint-nums, $columnBp),
+      $props: (
+        (padding-left, 40, 80, 120, 235),
+        (padding-right, 35, 80, 120, 235),
+      )
+    );
+  }
+  &__who {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    @include fluid-props(
+      $props: (
+        (margin-top, 16, 29),
+        (padding-top, 11, 64),
+        (padding-bottom, 30, 97),
+        (padding-left, 22, 32),
+        (padding-right, 22, 32),
+        (--who-border, 1.5, 2),
+        (--who-radius, 13, 36),
+      )
+    );
+    // 緑の枠。背景がグラデなので見出し部分の周辺の線をマスク
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: var(--who-border) solid var(--mint);
+      border-radius: var(--who-radius);
+      mask:
+        linear-gradient(90deg, #000 7%, transparent 7%, transparent 93%, #000 93%) top / 100%
+          calc(var(--who-border) * 3) no-repeat,
+        linear-gradient(#000, #000) bottom / 100% calc(100% - var(--who-border) * 3) no-repeat;
+
+      @include mediaUp($columnBp) {
+        mask:
+          linear-gradient(90deg, #000 15%, transparent 15%, transparent 85%, #000 85%) top / 100%
+            calc(var(--who-border) * 3) no-repeat,
+          linear-gradient(#000, #000) bottom / 100% calc(100% - var(--who-border) * 3) no-repeat;
+
+        border-color: var(--mint-pc);
+      }
+    }
+  }
+  &__who-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: var(--mint);
+    transform: translateY(-55%);
+
+    @include fluid-mid-props(
+      $mid-range: map.get($breakpoint-nums, $columnBp),
+      $props: [
+        (
+          font-size,
+          24,
+          38,
+          38,
+          62,
+        ),
+      ]
+    );
+
+    @include mediaUp($columnBp) {
+      letter-spacing: 0;
+      font-feature-settings: "palt";
+      color: var(--mint-pc);
+    }
+  }
+  &__who-text {
+    line-height: 1.57;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    @include fluid-props($props: [(font-size, 14, 20.38)]);
+    @include fluid-props(
+      $props: (
+        (font-size, 14, 20.5),
+        (padding-top, 14, 4),
+      )
+    );
+
+    @include mediaUp($columnBp) {
+      font-weight: 500;
+      line-height: 1.85;
+      letter-spacing: 0.11em;
+      @include mplus-normal;
+    }
+  }
+
+  &__sparkle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: none;
+    transform: translate(-64%, -125%);
+    @include fluid-props(
+      $props: [
+        (
+          width,
+          20,
+          32,
+        ),
+      ]
+    );
+    &--bottom {
+      top: auto;
+      left: auto;
+      bottom: 0;
+      right: 0;
+      transform: translate(10%, 125%);
+    }
+    @include mediaUp($columnBp) {
+      display: none;
+    }
+  }
+
+  &__chara {
+    position: relative;
+    @include fluid-props(
+      $props: (
+        (margin-top, -44, -130),
+        (margin-bottom, -15, -128),
+      )
+    );
+  }
+
+  &__decoration {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    @include mediaUp($columnBp) {
+      display: block;
+    }
+
+    &--clock {
+      position: absolute;
+
+      @include fluid-props(
+        $props: (
+          (top, 60, -32),
+          (right, 8.5, 75),
+          (margin-left, -13, -47),
+          (width, 26, 94),
+        )
+      );
+    }
+    &--potion {
+      position: absolute;
+
+      @include fluid-mid-props(
+        $mid-range: map.get($breakpoint-nums, $columnBp),
+        $props: (
+          (bottom, 0, 0, -40, 28),
+          (left, 0, 0, 60, 187),
+          (width, 36, 36, 50, 97),
+        )
+      );
+    }
+
+    &--hand {
+      @include fluid-props(
+        $props: (
+          (right, -1, -1),
+          (top, 24, 76),
+          (width, 41, 153),
+        )
+      );
+    }
+  }
+}

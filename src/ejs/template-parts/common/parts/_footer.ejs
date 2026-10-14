@@ -1,0 +1,31 @@
+<footer class="footer">
+  <div class="footer__container">
+    <ul class="footer__links">
+      <% pageData.footerLinks.forEach((item) => { %>
+        <li class="footer__link-item">
+          <a class="footer__link" href="<%= links[item.key] %>"><%= item.label %></a>
+        </li>
+      <% }) %>
+    </ul>
+    <ul class="footer__sns">
+      <li class="footer__sns-item">
+        <a class="footer__sns-link" href="<%= links.instagram %>" target="_blank" rel="noopener">
+          <img class="footer__sns-icon footer__sns-icon--instagram" src="../images/oshiete/footer/footer-instagram.svg" alt="Instagram" loading="lazy" />
+        </a>
+      </li>
+      <!--
+      // Threadsのリンク
+      <li class="footer__sns-item">
+        <a class="footer__sns-link" href="<%= links.threads %>" target="_blank" rel="noopener">
+          <img class="footer__sns-icon footer__sns-icon--threads" src="../images/oshiete/footer/footer-threads.svg" alt="Threads" loading="lazy" />
+        </a>
+      </li> -->
+    </ul>
+    <p class="footer__copyright">
+      Copyright ●●●●●, All Rights Reserved
+    </p>
+  </div>
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+/* 3rd party */
+@import "normalize.css";
+
+/* variables & common */
+@import "base/variables";
+@import "base/functions";
+@import "base/sizes";
+@import "base/mixin";
+@import "base/typography";
+@import "base/global";
+
+@import "layout/section";
+@import "layout/feature";
+
+/* parts */
+@import "parts/footer";
+
+/* sections */
+@import "pages/hero";
+@import "pages/mv";
+@import "pages/bunshin-loop";
+@import "pages/intro";
+@import "pages/bunshin";
+@import "pages/destiny";
+@import "pages/compatibility";
+@import "pages/fortune";
+@import "pages/mybook";
+@import "pages/talk";
+@import "pages/service";
